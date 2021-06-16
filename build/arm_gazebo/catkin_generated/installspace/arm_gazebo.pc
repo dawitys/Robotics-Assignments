@@ -1,0 +1,8 @@
+prefix=/home/abenij/Downloads/arm_ws/install
+
+Name: arm_gazebo
+Description: Description of arm_gazebo
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib -larm_gazebo
+Requires: arm_lib roscpp rospy std_msgs roscpp gazebo_ros arm_lib

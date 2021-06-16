@@ -1,0 +1,582 @@
+<?xml version='1.0'?>
+<sdf version='1.4'>
+  <model name="my_robot">
+	<static>false</static>
+	 <link name='base'>
+      <pose>0 0 0.05 0 0 0</pose>
+      <inertial>
+        <mass>50.0</mass>
+      </inertial>
+      <collision name='collision'>
+        <geometry>
+          <cylinder>
+            <radius>0.5</radius>
+            <length>0.1</length>
+          </cylinder>  
+        </geometry>
+      </collision>
+
+      <visual name='visual'>
+        <geometry>
+          <cylinder>
+            <radius>0.5</radius>
+            <length>0.1</length>
+          </cylinder>
+        </geometry>
+      </visual>
+
+   </link>
+   <link name='arm_1'>
+      <gravity>0</gravity>
+      <pose>0 0 .125 0 0 0</pose>
+      <inertial>
+        <mass>0.1</mass>
+      </inertial>
+      <collision name='collision'>
+        <geometry>
+          <cylinder>
+            <radius>0.15</radius>
+            <length>0.05</length>
+          </cylinder>  
+        </geometry>
+        <surface>
+              <friction>
+                <ode>
+                  <mu>0</mu>
+                  <mu2>0</mu2>
+                  <slip1>1.0</slip1>
+                  <slip2>1.0</slip2>
+                </ode>
+              </friction>
+            </surface>
+      </collision>
+
+      <visual name='visual'>
+        <geometry>
+          <cylinder>
+            <radius>0.15</radius>
+            <length>0.05</length>
+          </cylinder>
+        </geometry>
+      </visual>
+
+   </link>
+    <joint type="revolute" name="base_hinge">
+        <pose>0 0 0.025 0 0 0</pose>
+        <child>arm_1</child>
+        <parent>base</parent>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <dynamics>
+            <damping>1.0</damping>
+            <friction>0.3</friction>
+            <limit>
+              <lower>-1.0</lower>
+              <upper>1.0</upper>
+              <effort>40</effort>
+              <velocity>1.0</velocity>
+            </limit>        
+          </dynamics>
+        </axis>
+    </joint>
+    <link name='arm_2'>
+      <gravity>0</gravity>
+      <pose>0 0 1.15 0 0 0</pose>
+      <inertial>
+        <mass>2.0</mass>
+      </inertial>
+      <collision name='collision'>
+        <geometry>
+          <cylinder>
+            <radius>0.1</radius>
+            <length>2.0</length>
+          </cylinder>  
+        </geometry>
+        <surface>
+              <friction>
+                <ode>
+                  <mu>0</mu>
+                  <mu2>0</mu2>
+                  <slip1>1.0</slip1>
+                  <slip2>1.0</slip2>
+                </ode>
+              </friction>
+            </surface>
+      </collision>
+
+      <visual name='visual'>
+        <geometry>
+          <cylinder>
+            <radius>0.1</radius>
+            <length>2.0</length>
+          </cylinder>
+        </geometry>
+      </visual>
+
+   </link>
+   <joint type="revolute" name="arm1_hinge">
+        <pose>0 0 -1 0 0 0</pose>
+        <child>arm_2</child>
+        <parent>arm_1</parent>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <dynamics>
+            <damping>1.0</damping>
+            <friction>0.3</friction>
+            <limit>
+              <lower>-1.0</lower>
+              <upper>1.0</upper>
+              <effort>40</effort>
+              <velocity>1.0</velocity>
+            </limit>        
+          </dynamics>
+        </axis>
+    </joint>
+     <link name='arm_3'>
+      <gravity>0</gravity>
+      <pose>0 0 2.65 0 0 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+      </inertial>
+      <collision name='collision'>
+        <geometry>
+          <cylinder>
+            <radius>0.1</radius>
+            <length>1.0</length>
+          </cylinder>  
+        </geometry>
+        <surface>
+              <friction>
+                <ode>
+                  <mu>0</mu>
+                  <mu2>0</mu2>
+                  <slip1>1.0</slip1>
+                  <slip2>1.0</slip2>
+                </ode>
+              </friction>
+            </surface>
+      </collision>
+
+      <visual name='visual'>
+        <geometry>
+          <cylinder>
+            <radius>0.1</radius>
+            <length>1.0</length>
+          </cylinder>
+        </geometry>
+      </visual>
+
+   </link>
+
+   <joint type="revolute" name="arm2_hinge">
+        <pose>0 0 -0.5 0 0 0</pose>
+        <child>arm_3</child>
+        <parent>arm_2</parent>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <dynamics>
+            <damping>1.0</damping>
+            <friction>0.3</friction>
+            <limit>
+              <lower>-1.0</lower>
+              <upper>1.0</upper>
+              <effort>40</effort>
+              <velocity>1.0</velocity>
+            </limit>        
+          </dynamics>
+        </axis>
+    </joint>
+
+    <link name='arm_4'>
+      <gravity>0</gravity>
+      <pose>0 0 3.4 0 0 0</pose>
+      <inertial>
+        <mass>0.5</mass>
+      </inertial>
+      <collision name='collision'>
+        <geometry>
+          <cylinder>
+            <radius>0.1</radius>
+            <length>0.50</length>
+          </cylinder>  
+        </geometry>
+        <surface>
+              <friction>
+                <ode>
+                  <mu>0</mu>
+                  <mu2>0</mu2>
+                  <slip1>1.0</slip1>
+                  <slip2>1.0</slip2>
+                </ode>
+              </friction>
+            </surface>
+      </collision>
+
+      <visual name='visual'>
+        <geometry>
+          <cylinder>
+            <radius>0.1</radius>
+            <length>0.50</length>
+          </cylinder>
+        </geometry>
+      </visual>
+
+   </link>
+
+   <joint type="revolute" name="arm3_hinge">
+        <pose>0 0 -0.25 0 0 0</pose>
+        <child>arm_4</child>
+        <parent>arm_3</parent>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <dynamics>
+            <damping>1.0</damping>
+            <friction>0.3</friction>
+            <limit>
+              <lower>-1.0</lower>
+              <upper>1.0</upper>
+              <effort>40</effort>
+              <velocity>1.0</velocity>
+            </limit>        
+          </dynamics>
+        </axis>
+    </joint>
+
+    <link name='gripRotation'>
+      <gravity>0</gravity>
+      <pose>0 0 3.75 0 0 0</pose>
+      <inertial>
+        <mass>0.5</mass>
+      </inertial>
+      <collision name='collision'>
+        <geometry>
+          <cylinder>
+            <radius>0.1</radius>
+            <length>0.20</length>
+          </cylinder>  
+        </geometry>
+        <surface>
+              <friction>
+                <ode>
+                  <mu>0</mu>
+                  <mu2>0</mu2>
+                  <slip1>1.0</slip1>
+                  <slip2>1.0</slip2>
+                </ode>
+              </friction>
+            </surface>
+      </collision>
+
+      <visual name='visual'>
+        <geometry>
+          <cylinder>
+            <radius>0.1</radius>
+            <length>0.20</length>
+          </cylinder>
+        </geometry>
+      </visual>
+
+   </link>
+
+   <joint type="revolute" name="arm4_hinge">
+        <pose>0 0 -0.1 0 0 0</pose>
+        <child>gripRotation</child>
+        <parent>arm_4</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+           <limit>
+              <lower>-0.5</lower>
+              <upper>0.5</upper>
+              <effort>1</effort>
+          </limit>
+          <dynamics>
+            <damping>1.0</damping>
+            <friction>0.3</friction>
+            <limit>
+              <lower>-1.0</lower>
+              <upper>1.0</upper>
+              <effort>40</effort>
+              <velocity>1.0</velocity>
+            </limit>        
+          </dynamics>
+        </axis>
+    </joint>
+
+
+
+
+
+    <link name="palm">
+            <gravity>0</gravity>
+            <pose>0.0 0.0 3.9 0 0 0</pose>
+            <inertial>
+                <inertia>
+                    <ixx>0.01</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.01</iyy>
+                    <iyz>0</iyz>
+                    <izz>0.01</izz>
+                </inertia>
+                <mass>0.5</mass>
+            </inertial>
+            <collision name="collision">
+                <geometry>
+                    <box>
+                        <size>0.1 0.2 0.1</size>
+                    </box>
+                </geometry>
+            </collision>
+            <visual name="visual">
+                <geometry>
+                    <box>
+                        <size>0.1 0.2 0.1</size>
+                    </box>
+                </geometry>
+                <material>
+                    <script>Gazebo/Red</script>
+                </material>
+            </visual>
+        </link>
+        <joint type="revolute" name="gripRotation_hinge">
+        <pose>0 0 -0.05 0 0 0</pose>
+        <child>palm</child>
+        <parent>gripRotation</parent>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <dynamics>
+            <damping>1.0</damping>
+            <friction>0.3</friction>
+            <limit>
+              <lower>-1.0</lower>
+              <upper>1.0</upper>
+              <effort>40</effort>
+              <velocity>1.0</velocity>
+            </limit>        
+          </dynamics>
+        </axis>
+    </joint>
+        <link name="left_finger">
+            <gravity>0</gravity>
+            <pose>0.1 0.2 3.9 0 0 -0.78539</pose>
+            <inertial>
+                <inertia>
+                    <ixx>0.01</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.01</iyy>
+                    <iyz>0</iyz>
+                    <izz>0.01</izz>
+                </inertia>
+                <mass>0.1</mass>
+            </inertial>
+            <collision name="collision">
+                <geometry>
+                    <box>
+                        <size>0.1 0.3 0.1</size>
+                    </box>
+                </geometry>
+            </collision>
+            <visual name="visual">
+                <geometry>
+                    <box>
+                        <size>0.1 0.3 0.1</size>
+                    </box>
+                </geometry>
+                <material>
+                    <script>Gazebo/Blue</script>
+                </material>
+            </visual>
+        </link>
+        <joint type="revolute" name="palm_hinge_left">
+          <pose>0.05 -0.15 0.05 0 0 0</pose>
+          <child>left_finger</child>
+          <parent>palm</parent>
+          <axis>
+           <xyz>0 0 -1</xyz>
+           <limit>
+              <lower>-0.5</lower>
+              <upper>0.5</upper>
+              <effort>1</effort>
+          </limit>
+           <dynamics>
+            <damping>1.0</damping>
+            <friction>0.3</friction>
+            <limit>
+              <lower>-1.0</lower>
+              <upper>1.0</upper>
+              <effort>40</effort>
+              <velocity>1.0</velocity>
+            </limit>        
+          </dynamics>
+        </axis>
+    </joint>
+        <link name="left_finger_tip">
+            <gravity>0</gravity>
+            <pose>0.336 0.3 3.9 0 0 1.5707</pose>
+            <inertial>
+                <inertia>
+                    <ixx>0.01</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.01</iyy>
+                    <iyz>0</iyz>
+                    <izz>0.01</izz>
+                </inertia>
+                <mass>0.1</mass>
+            </inertial>
+            <collision name="collision">
+                <geometry>
+                    <box>
+                        <size>0.1 0.2 0.1</size>
+                    </box>
+                </geometry>
+            </collision>
+            <visual name="visual">
+                <geometry>
+                    <box>
+                        <size>0.1 0.2 0.1</size>
+                    </box>
+                </geometry>
+                <material>
+                    <script>Gazebo/Blue</script>
+                </material>
+            </visual>
+        </link>
+        <joint type="revolute" name="left_finger_hinge">
+          <pose>-0.05 0.1 0.05 0 0 0</pose>
+          <child>left_finger_tip</child>
+          <parent>left_finger</parent>
+          <axis>
+           <xyz>0 0 -1</xyz>
+           <limit>
+              <lower>-0.3</lower>
+              <upper>0.3</upper>
+              <effort>1</effort>
+          </limit>
+           <dynamics>
+            <damping>1.0</damping>
+            <friction>0.3</friction>
+            <limit>
+              <lower>-1.0</lower>
+              <upper>1.0</upper>
+              <effort>40</effort>
+              <velocity>1.0</velocity>
+            </limit>        
+          </dynamics>
+        </axis>
+    </joint>
+        <link name="right_finger">
+            <gravity>0</gravity>
+            <pose>0.1 -0.2 3.9 0 0 .78539</pose>
+            <inertial>
+                <inertia>
+                    <ixx>0.01</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.01</iyy>
+                    <iyz>0</iyz>
+                    <izz>0.01</izz>
+                </inertia>
+                <mass>0.1</mass>
+            </inertial>
+            <collision name="collision">
+                <geometry>
+                    <box>
+                        <size>0.1 0.3 0.1</size>
+                    </box>
+                </geometry>
+            </collision>
+            <visual name="visual">
+                <geometry>
+                    <box>
+                        <size>0.1 0.3 0.1</size>
+                    </box>
+                </geometry>
+                <material>
+                    <script>Gazebo/Green</script>
+                </material>
+            </visual>
+        </link>
+        <joint type="revolute" name="palm_hinge_right">
+          <pose>0.05 0.15 0.05 0 0 0</pose>
+          <child>right_finger</child>
+          <parent>palm</parent>
+          <axis>
+           <xyz>0 0 1</xyz>
+           <limit>
+              <lower>-0.5</lower>
+              <upper>0.5</upper>
+              <effort>1</effort>
+          </limit>
+           <dynamics>
+            <damping>1.0</damping>
+            <friction>0.3</friction>
+            <limit>
+              <lower>-1.0</lower>
+              <upper>1.0</upper>
+              <effort>40</effort>
+              <velocity>1.0</velocity>
+            </limit>        
+          </dynamics>
+        </axis>
+    </joint>
+        <link name="right_finger_tip">
+            <gravity>0</gravity>
+            <pose>0.336 -0.3 3.9 0 0 1.5707</pose>
+            <inertial>
+                <inertia>
+                    <ixx>0.01</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.01</iyy>
+                    <iyz>0</iyz>
+                    <izz>0.01</izz>
+                </inertia>
+                <mass>0.1</mass>
+            </inertial>
+            <collision name="collision">
+                <geometry>
+                    <box>
+                        <size>0.1 0.2 0.1</size>
+                    </box>
+                </geometry>
+            </collision>
+            <visual name="visual">
+                <geometry>
+                    <box>
+                        <size>0.1 0.2 0.1</size>
+                    </box>
+                </geometry>
+                <material>
+                    <script>Gazebo/Green</script>
+                </material>
+            </visual>
+        </link>
+        <joint type="revolute" name="right_finger_hinge">
+          <pose>0.05 0.1 0.05 0 0 0</pose>
+          <child>right_finger_tip</child>
+          <parent>right_finger</parent>
+          <axis>
+           <xyz>0 0 1</xyz>
+           <limit>
+              <lower>-0.3</lower>
+              <upper>0.3</upper>
+              <effort>1</effort>
+          </limit>
+           <dynamics>
+            <damping>1.0</damping>
+            <friction>0.3</friction>
+            <limit>
+              <lower>-1.0</lower>
+              <upper>1.0</upper>
+              <effort>40</effort>
+              <velocity>1.0</velocity>
+            </limit>        
+          </dynamics>
+        </axis>
+    </joint>
+    
+    <plugin name="arm_controller" filename="libarm_gazebo.so" />
+  </model>
+</sdf>

@@ -1,0 +1,2 @@
+arm_description:arm_gazebo:arm_lib
+-DCATKIN_DEVEL_PREFIX=/home/abenij/Downloads/arm_ws/devel -DCMAKE_INSTALL_PREFIX=/home/abenij/Downloads/arm_ws/install -G Unix Makefiles

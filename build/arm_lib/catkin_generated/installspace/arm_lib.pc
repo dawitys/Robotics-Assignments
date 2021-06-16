@@ -1,0 +1,8 @@
+prefix=/home/abenij/Downloads/arm_ws/install
+
+Name: arm_lib
+Description: Description of arm_lib
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

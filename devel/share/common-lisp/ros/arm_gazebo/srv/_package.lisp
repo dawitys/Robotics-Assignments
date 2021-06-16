@@ -1,0 +1,15 @@
+(cl:defpackage arm_gazebo-srv
+  (:use )
+  (:export
+   "FKSERVICE"
+   "<FKSERVICE-REQUEST>"
+   "FKSERVICE-REQUEST"
+   "<FKSERVICE-RESPONSE>"
+   "FKSERVICE-RESPONSE"
+   "IKSERVICE"
+   "<IKSERVICE-REQUEST>"
+   "IKSERVICE-REQUEST"
+   "<IKSERVICE-RESPONSE>"
+   "IKSERVICE-RESPONSE"
+  ))
+

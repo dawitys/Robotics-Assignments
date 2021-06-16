@@ -1,0 +1,4 @@
+float32 base_hinge
+float32 arm1_hinge
+float32 arm2_hinge
+float32 arm3_hinge
