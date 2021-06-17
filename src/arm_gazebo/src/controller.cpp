@@ -45,7 +45,7 @@ namespace gazebo
 			this->angleStatePublisher=arm_pub.advertise<std_msgs::String>("get_angles",1000);
 			ros::Rate loop_rate(10);
 
-			this->angleStateListener=arm_sub.subscribe("set_angles",1000, &ModelPush::publish,this);
+			this->angleStateListener=arm_sub.subscribe("set_angles",1000, &ModelPush::publishContiniousAngle,this);
 
 			// ROS_INFO("Hello World!");
 			//  ros::NodeHandle n;
@@ -62,7 +62,7 @@ namespace gazebo
 			return rad;
 		}
 	public:
-		void publish(const arm_gazebo::Angles::ConstPtr& msg){
+		void publishContiniousAngle(const arm_gazebo::Angles::ConstPtr& msg){
 			this->model->GetJoints()[0]->SetPosition(0,changeToRad(msg->base_hinge));
 			this->model->GetJoints()[1]->SetPosition(0,changeToRad(msg->arm1_hinge));
 			this->model->GetJoints()[2]->SetPosition(0,changeToRad(msg->arm2_hinge));
@@ -85,6 +85,76 @@ namespace gazebo
       		// Apply a small linear velocity to the model.
       		// this->model->SetLinearVel(ignition::math::Vector3d(0, vel, 0));
     }
+	public:
+		void grip()
+		{
+			std::string phl = this->model->GetJoint("palm_hinge_left")->GetScopedName();
+			this->model->GetJointController()->SetPositionTarget(phl, -45 * M_PI/ 180.0 );
+
+			std::string lfh = this->model->GetJoint("left_finger_hinge")->GetScopedName();
+			this->model->GetJointController()->SetPositionTarget(lfh, -45 * M_PI/ 180.0);
+
+			std::string phr = this->model->GetJoint("palm_hinge_right")->GetScopedName();
+			this->model->GetJointController()->SetPositionTarget(phr, 45 * M_PI/ 180.0 );
+
+			std::string rfh = this->model->GetJoint("right_finger_hinge")->GetScopedName();
+			this->model->GetJointController()->SetPositionTarget(rfh, 45 * M_PI/ 180.0);
+		}
+
+	public:
+		void release()
+		{
+			std::string phl = this->model->GetJoint("palm_hinge_left")->GetScopedName();
+			this->model->GetJointController()->SetPositionTarget(phl, 135 * M_PI/ 180.0);
+
+			std::string lfh = this->model->GetJoint("left_finger_hinge")->GetScopedName();
+			this->model->GetJointController()->SetPositionTarget(lfh, 135 * M_PI/ 180.0);
+
+			std::string phr = this->model->GetJoint("palm_hinge_right")->GetScopedName();
+			this->model->GetJointController()->SetPositionTarget(phr, -135 * M_PI/ 180.0);
+
+			std::string rfh = this->model->GetJoint("right_finger_hinge")->GetScopedName();
+			this->model->GetJointController()->SetPositionTarget(rfh, -135 * M_PI/ 180.0);
+		}
+	public:
+		void updateJoint(std::vector<float> links, std::vector<float> ee)
+		{
+			ros::NodeHandle n;
+			ros::ServiceClient client = n.serviceClient<arm_gazebo::IK>("client");
+
+			arm_gazebo::IK srv;
+			srv.request.links = links;
+			srv.request.ee = ee;
+			
+			if (client.call(srv)){
+				auto base = srv.response.angles[0]);
+				this->SetAngle("base_hinge",base);
+				auto arm1 = srv.response.angles[1]);
+				this->SetAngle("arm1_hinge",arm1);
+				auto arm2 = srv.response.angles[2]);
+				this->SetAngle("arm2_hinge",arm2);
+				auto arm3 = srv.response.angles[3]);
+				this->SetAngle("arm3_hinge",arm3);
+				auto arm4 = srv.response.angles[4]);
+				this->SetAngle("arm4_hinge",arm4);
+				auto grip = srv.response.angles[5]);
+				this->SetAngle("gripRotation_hinge",grip);
+			}
+		}
+	public:
+		void gripperControllerconst arm_gazebo::gripper::ConstPtr& gripperCommand)
+		{
+			std::vector<float> links = { 0.1, 0.05, 2, 1, .5, .2, 0.05 }; 
+
+			this->updateArmJointState( links, gripperCommand->ee);
+
+			if( gripperCommand->catch ){
+				this->catchObject();
+			}else{
+				this->releaseObject();
+			}
+		}
+
 
   // Pointer to the model
   private:
